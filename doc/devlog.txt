@@ -36,3 +36,8 @@ caiC -- 2019-01-08 19:59
 - Added map option for when player wins
 - Clarified that a "personalized" game page is "personalized" by role
 ==============================================================
+caiC -- 2019-01-08 22:42
+--------------------------------------------------------------
+- Changed site "cards" to reflect change in theme/roles
+- Changed site "cards" based on clarification comments (ex: new game room feature)
+==============================================================
