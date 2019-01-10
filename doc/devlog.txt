@@ -49,5 +49,11 @@ caiC -- 2019-01-08 22:42
 linR -- 2019-01-09 22:02
 --------------------------------------------------------------
 - Changed description, APIs, and component list to reflect new project idea
-- Added new component map 
+- Added new component map
+==============================================================
+
+caiC -- 2019-01-09 22:13
+--------------------------------------------------------------
+- Changed site cards to reflect new game
+- Added new API knowledge base cards
 ==============================================================
