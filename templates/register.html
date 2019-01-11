@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}Account Registration - {% endblock %}
+{% block body %}
+<center>
+    <h2>
+        <pre>
+        </pre>
+    </h2>
+    <h1>Register an account below</h1>
+    <br>
+    <form action="/auth" method="POST">
+        <p>New username: <input type="text" name="user" required></p>
+        <br>
+        <p>New password: <input type="password" name="pass1" required></p>
+        <p>Confirm password: <input type="password" name="pass2" required></p>
+        <input type="submit" value="Create Account">
+        <br><br>
+    </form>
+    {% set msgs = get_flashed_messages() %}
+    {% for each in msgs%}
+        {{each}}
+    {% endfor %}
+    <a href="/">Log In</a>
+    {% endblock %}
+    {% block logout %}{% endblock %}
+</center>

@@ -49,6 +49,22 @@ def logout():
         flash('Sucessfully Logged Out')
     return redirect('/')
 
+@app.route("/register")
+def register():
+
+    '''This function redirects the user to their profile page if they are logged in.
+       If they aren't, it will render the account creator page
+       where they will be prompted to enter their desired username and password
+       as well as confirm their password.
+       Once the user sumbits their information, they will be redirected to their profile page.
+       Users can also click the login link which brings them back to the login page.'''
+
+    #redirects if not logged in
+    if 'user' in session:
+        return redirect('/home')
+    
+    return render_template("register.html")
+
 @app.route("/auth", methods = ['POST','GET'])
 def authenticate():
 
@@ -74,13 +90,18 @@ def authenticate():
     #if the user successsfully logs in or creates an acount, redirect them to their profile page
     if loginStatus in ["Account creation successful","Login Successful"]:
         session['user'] = request.form['user']
-        return redirect('/profile')
+        return redirect('/home')
     
     else:
         flash(loginStatus)
         #Redirects to previous page or root if there is none
         return redirect(request.referrer or '/')
 
+@app.route('/home')
+def home():
+    return render_template("home.html")
+
+    
 if __name__ == "__main__":
     app.debug = True
     app.run()

@@ -1,8 +1,27 @@
-<html>
-<head>
-<title></title>
-</head>
-<body>
-asdf
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Home Page - {% endblock %}
+{% block body %}
+<center>
+    <h1>
+        <pre>
+        </pre>
+    </h1>
+</center>
+<center><p>Please log in below, or create an account <a href="/register">here</a></p></center>
+<br>
+<form action="/auth" method="POST">
+    <center>
+        <p>Username: <input type="text" name="user" required></p>
+        <p>Password: <input type="password" name="pass" required></p>
+        <input type="submit" value="Log In">
+        <br><br>
+    </center>
+</form>
+<center>
+    {% set msgs = get_flashed_messages() %}
+    {% for each in msgs%}
+    {{each}}
+    {% endfor %}
+</center>
+{% endblock %}
+{% block logout %}{% endblock %}

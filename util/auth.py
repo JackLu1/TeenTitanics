@@ -12,7 +12,7 @@ def login(user,pswd):
     c = db.cursor()
     
     #Looks for the password of the inputted user
-    for i in c.execute("SELECT pass FROM userInfo WHERE username = ?",(user,)):
+    for i in c.execute("SELECT password FROM userInfo WHERE username = ?",(user,)):
     
          #If user is found and passwords match
         if i[0] == pswd: return "Login Successful"
@@ -50,7 +50,7 @@ def register(user,pswd,passConf):
             return "Passwords do not match"        
         
         #if password confirmation succeeds add the user to the database
-        c.execute("INSERT INTO userInfo (username,pass) VALUES(?,?)",(user,pswd,))
+        c.execute("INSERT INTO userInfo (username,password) VALUES(?,?)",(user,pswd,))
         db.commit()
         db.close()
         return "Account creation successful"
