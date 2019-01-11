@@ -1,0 +1,84 @@
+#TeenTitanics - Cathy Cai, Ahnaf Kazi, Ricky Lin, Matthew Ming
+
+import json
+import os
+#import urllib
+#import datetime
+
+from flask import Flask, render_template, session, redirect, request, url_for, flash
+
+#from util import auth, adders, getters
+
+app = Flask(__name__)
+
+app.secret_key = os.urandom(32)
+
+#obtains keys to use from key database
+#with open("data/keys.json") as f:
+#    data = json.loads(f.read())
+#    key=data['map_key']
+#    secondkey=data['weather_key']
+
+#key = 
+
+#determines if user is logged in or not
+
+@app.route("/")
+def index():
+
+    '''This function redirects the user to their profile page if they are logged in.
+       If they aren't, it will render the login page
+       where the users will be prompted to enter their username and password.
+       When users enter and submit the information,
+       they will be redirected to the authentication page.'''
+    
+    #if the user is logged in redirect them to their profile page
+    if 'user' in session:
+        return redirect('/home')
+    
+    #if not, load the login page
+    return render_template("index.html")
+
+@app.route("/logout")
+def logout():
+
+    if 'user' in session:
+        session.pop('user')
+        flash('Sucessfully Logged Out')
+    return redirect('/')
+
+@app.route("/auth", methods = ['POST','GET'])
+def authenticate():
+
+    '''This function redirects users who got to the the authenticate page without entering a form to the login page.
+       If they did enter a form, it will check if the username and password are in the database.
+       If they are, it will redirect them to their home page and flash a message indicating a successful login.
+       If they aren't, it will redirect them to the login page and flash a message indicating the issue.
+       Whether the username or the password was incorrect.
+       If they were both incorrect, the message will only indicate an issue with the username.'''
+    
+    loginStatus = ''
+    
+    #if the user got here without entering a form, redirect them to the index
+    if request.method == 'GET' or not('user' in request.form.keys()):
+        return redirect('/')
+    
+    #checks the user's login info or account creation
+    if "pass2" in request.form.keys():
+        loginStatus =  auth.register(request.form['user'],request.form['pass1'],request.form['pass2'])
+    
+    else: loginStatus = auth.login(request.form["user"],request.form["pass"])
+    
+    #if the user successsfully logs in or creates an acount, redirect them to their profile page
+    if loginStatus in ["Account creation successful","Login Successful"]:
+        session['user'] = request.form['user']
+        return redirect('/profile')
+    
+    else:
+        flash(loginStatus)
+        #Redirects to previous page or root if there is none
+        return redirect(request.referrer or '/')
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
