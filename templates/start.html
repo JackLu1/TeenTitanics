@@ -6,28 +6,24 @@
     <div class="container">
       <div class="row">
         <div class="col-sm">
-          <a href="https://google.com/">
-              <img src="{{url_for('static', filename='bulbasaur.png')}}"/>
+          <a href="/game">
+              <img src="{{url_for('static', filename='bulbasaur.png')}}" width=50%/>
           </a>
         </div>
         <div class="col-sm">
-          <a href="https://google.com/">
-              <img src="{{url_for('static', filename='charmander.png')}}"/>
+          <a href="/game">
+              <img src="{{url_for('static', filename='charmander.png')}}" width=50%/>
           </a>
         </div>
-        <div class="col-lg">
-          <a href="https://google.com/">
-              <img src="{{url_for('static', filename='squirtle.png')}}"/>
+        <div class="col-sm">
+          <a href="/game">
+              <img src="{{url_for('static', filename='squirtle.png')}}" width=50%/>
           </a>
         </div>
       </div>
     </div><br>
     <br>
-
-    <a href = '/game'>Start</a><br>
     <a href = '/'>Back</a>
 </center>
 
 {% endblock %}
-
-
