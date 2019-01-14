@@ -8,7 +8,12 @@
   <div id = "game"><br><br>
   <center><canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas><center><br><br>
   <script src="../static/scripts.js"></script>
+
   </div>
 </body>
 
+{% block logout %}
+  <br><br><center><a href = '/start'>Back</a></center>
+  <center><a href = '/logout'>Log Out</a></center>
+{% endblock %}
 {% endblock %}
