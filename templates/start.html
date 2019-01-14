@@ -7,17 +7,17 @@
       <div class="row">
         <div class="col-sm">
           <a href="https://google.com/">
-              <img src="../img/bulbasaur.png"/>
+              <img src="{{url_for('static', filename='bulbasaur.png')}}"/>
           </a>
         </div>
         <div class="col-sm">
           <a href="https://google.com/">
-              <img src="../img/charmander.png"/>
+              <img src="{{url_for('static', filename='charmander.png')}}"/>
           </a>
         </div>
         <div class="col-lg">
           <a href="https://google.com/">
-              <img src="../img/squirtle.png"/>
+              <img src="{{url_for('static', filename='squirtle.png')}}"/>
           </a>
         </div>
       </div>
@@ -27,4 +27,7 @@
     <a href = '/game'>Start</a><br>
     <a href = '/'>Back</a>
 </center>
+
 {% endblock %}
+
+
