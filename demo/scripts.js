@@ -10,16 +10,16 @@ var xCor=50;
 var yCor=50;
 //image processing
 var wall = new Image();
-wall.src="../img/wall.png";
+wall.src="../static/wall.png";
 var wallV=1;
 var brick = new Image();
-brick.src="../img/brick.png";
+brick.src="../static/brick.png";
 var brickV=2;
 var bomb = new Image();
-bomb.src="../img/bomb.png";
+bomb.src="../static/bomb.png";
 var bombV=3;
 var explosion = new Image();
-explosion.src="../img/explosion4.png";
+explosion.src="../static/explosion4.png";
 var explosionV=4;
 var empty=0;
 function Pokemon(name,speed){
@@ -27,7 +27,7 @@ function Pokemon(name,speed){
 	this.hp=50;
 	this.speed=speed;
 	this.img = new Image();
-	this.img.src="../img/"+name+".png";
+	this.img.src="../static/"+name+".png";
 	this.maxBomb=2;
 }
 var tileX=(xCor/50)|0;
