@@ -26,5 +26,5 @@ $ . venv/bin/activate
 ```
 (venv) $ python app.py
 ```
-5. Navigate to ```localhost:500``` or ```127.0.0.1``` on your web browser.
+5. Navigate to ```localhost:5000``` or ```127.0.0.1``` on your web browser.
 ## API
