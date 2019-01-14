@@ -27,4 +27,5 @@ $ . venv/bin/activate
 (venv) $ python app.py
 ```
 5. Navigate to ```localhost:5000``` or ```127.0.0.1``` on your web browser.
+6. When you go to the game webpage, ```Ctrl+Shift+r``` to update the js.
 ## API
