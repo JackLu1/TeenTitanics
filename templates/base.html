@@ -13,13 +13,15 @@
 
   <body>
     {% block head %}
-      <p class="display-4 text-center" id="logo">BOMBERMON</p>
+      <!-- <img src="{{url_for('static', filename='logo.png')}}" width=5%/> -->
+      <center><br><a class="display-4 text-center" id="logo">BOMBERMON</a><center>
     {% endblock head %}
     {% block body %}
     {% endblock %}
   </body>
 
   <footer>
+    <br><br><center><a href = '/'>Back</a></center>
     {% block logout %}
       <center><a href = '/logout'>Log Out</a></center>
     {% endblock %}

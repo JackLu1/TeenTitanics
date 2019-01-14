@@ -1,13 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Game Demo</title>
-</head>
-<body>
-<div id = "game">
-<canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas>
-<p id="stat"></p>
-<script src="../static/scripts.js"></script>
-</div>
+{% extends 'base.html' %}
+{% block body %}
+
+  <head>
+  <title>Game Demo</title>
+  </head>
+  <body>
+  <div id = "game"><br><br>
+  <center><canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas><center><br><br>
+  <script src="../static/scripts.js"></script>
+  </div>
 </body>
-</html>
+
+{% endblock %}
