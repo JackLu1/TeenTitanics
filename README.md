@@ -1,8 +1,8 @@
 # TeenTitanics
 - Project Manager Matthew Ming
-- Backend Developer Ricky Lin
-- Frontend Templater Cathy Cai
-- Full Stack Developer Ahnaf Kazi
+- Ricky Lin
+- Cathy Cai
+- Ahnaf Kazi
 ## Project Overview
 A local multiplayer game based off the popular game Bomberman, but with a twist! Fight opponents as Pokemon with special abilities.
 ## Video Demo

@@ -16,15 +16,15 @@
     {% block head %}
       <!-- <img src="{{url_for('static', filename='logo.png')}}" width=5%/> -->
       <center><br><a class="display-4 text-center" id="logo">BOMBERMON</a><center>
-    {% endblock head %}
+    {% endblock %}
     {% block body %}
     {% endblock %}
   </body>
 
   <footer>
     {% block logout %}
-      <br><br><center><a href = '/'>Back</a></center>
-      <center><a href = '/logout'>Log Out</a></center>
+      <a href = '/'>Back</a><br>
+      <a href = '/logout'>Log Out</a>
     {% endblock %}
     {% block footer %}
     <br>

@@ -2,7 +2,7 @@
 {% block title %}Home Page - {% endblock %}
 {% block body %}
 
-<center><p>Please log in below, or create an account <a href="/register">here</a></p></center>
+<br><center><p>Please log in below, or create an account <a href="/register">here</a></p></center>
 <br>
 <div class ="col-sm-2 col-lg-4"></div>
 <div class= "col-sm-6 col-lg-4">
@@ -15,17 +15,17 @@
       <label for="password">Password: </label>
       <input type="password" name="pass" class="form-control" id="password" placeholder="Password">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    
+    <button type="submit" class="btn" id="submit">Submit</button>
+
     <br><br>
 </form>
 </div>
 <center>
   {% set msgs = get_flashed_messages() %}
   {% for each in msgs%}
-  {{each}}
+  <i>{{each}}</i>
   {% endfor %}
 </center>
 <div class="col-sm-2 col-lg-4"></div>
 {% endblock %}
-{% block logout %}{% endblock %}
+{% block logout %}<br><br><center><a href = '/'>Back</a></center><a href = '/logout'>Log Out</a>{% endblock %}
