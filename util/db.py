@@ -8,13 +8,13 @@ c = db.cursor()
 
 #Setting up tables
 '''creates table to store user information'''
-c.execute("CREATE TABLE IF NOT EXISTS userInfo(userID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, Bombermons TEXT, Upgrades TEXT, Money INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS userInfo(userID INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, slots INTEGER, healthUpgrade INTEGER, attackUpgrade INTEGER, speedUpgrade INTEGER, money INTEGER)")
 
 '''creates table to store leaderboard information'''
-c.execute("CREATE TABLE IF NOT EXISTS leaderboard(userID INTEGER, Wins INTEGER)")
+c.execute("CREATE TABLE IF NOT EXISTS leaderboard(username TEXT, wins INTEGER)")
 
 '''creates table to store Pokemon information'''
-c.execute("CREATE TABLE IF NOT EXISTS pokeInfo(pokeID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, Health INTEGER, Attack FLOAT, Speed INTEGER, Type TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS pokeInfo(pokeID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, health INTEGER, attack FLOAT, speed INTEGER, type TEXT)")
 
 '''copy info from PokeAPI'''
 
@@ -46,7 +46,7 @@ while (counter < 8):
 #    print(speed)
 #    print(typ)
 
-    c.execute("INSERT INTO pokeInfo(name, Health, Attack, Speed, Speed) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ))
+    c.execute("INSERT INTO pokeInfo(name, health, attack, speed, type) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ,))
 
     counter += 3
 

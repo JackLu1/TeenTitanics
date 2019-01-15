@@ -2,28 +2,18 @@
 
 import json
 import os
-#import urllib
+import urllib
 #import datetime
 
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
-from util import auth
+from util import auth, accessors, mutators
 
 #from util import auth, adders, getters
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
-
-#obtains keys to use from key database
-#with open("data/keys.json") as f:
-#    data = json.loads(f.read())
-#    key=data['map_key']
-#    secondkey=data['weather_key']
-
-#key =
-
-#determines if user is logged in or not
 
 @app.route("/")
 def index():
@@ -116,7 +106,6 @@ def start():
 @app.route('/game')
 def game():
     return render_template("game.html")
-
 
 if __name__ == "__main__":
     app.debug = True
