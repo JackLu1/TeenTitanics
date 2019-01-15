@@ -1,0 +1,27 @@
+* {
+  color: white;
+  background-color: #5D535E;
+  font-family: 'Special Elite', cursive;
+}
+
+#logo {
+  color: #535254;
+  size: 40px;
+  background-color: white;
+  font-family: 'ZCOOL KuaiLe', cursive;
+}
+
+#logo:hover {
+  font-size: 60px;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+a:hover {
+  color: #ec96a4;
+  text-decoration: none;
+  font-size: 20px;
+}
