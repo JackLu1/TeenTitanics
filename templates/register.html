@@ -4,18 +4,32 @@
 <center>
     <h1>Create an account below</h1>
     <br>
+    
+    <div class ="col-sm-2 col-lg-4"></div>
+    <div class= "col-sm-6 col-lg-4">
     <form action="/auth" method="POST">
-        <p>Desired username: <input type="text" name="user" required></p>
-        <br>
-        <p>Desired password: <input type="password" name="pass1" required></p>
-        <p>Confirm password: <input type="password" name="pass2" required></p>
-        <input type="submit" value="Create Account">
+
+	<div class="form-group">
+	  <label for="username">Desired username: </label>
+	  <input type="text" name="user" class="form-control" id="username" placeholder="Enter username">
+	</div>
+	<div class="form-group">
+	  <label for="password">Desired password: </label>
+	  <input type="password" name="pass1" class="form-control" id="password" placeholder="Password">
+	</div>
+	<div class="form-group">
+	  <label for="password">Confirm password: </label>
+	  <input type="password" name="pass2" class="form-control" id="password" placeholder="Password">
+	</div>
+	<button type="submit" class="btn btn-primary" value="Create Account">Submit</button>
         <br><br>
     </form>
+    </div>
     {% set msgs = get_flashed_messages() %}
     {% for each in msgs%}
         {{each}}
     {% endfor %}
+    <div class="col-sm-2 col-lg-4"></div>
     <a href="/">Log In</a>
     {% endblock %}
     {% block logout %}{% endblock %}
