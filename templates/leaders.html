@@ -10,6 +10,11 @@
     <h2>Leaderboard</h2><br>
 
     <div class="container">
+      <ol>
+        {% for leader in leaders %}
+          <li>{{leader[0]}} : {{leader[1]}} wins</li>
+        {% endfor %}
+      </ol>
     </div><br>
     <br>
 </center>

@@ -51,7 +51,7 @@ def register(user,pswd,passConf):
         
         #if password confirmation succeeds add the user to the database
         c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money) VALUES(?,?,?,?,?,?,?)",(user,pswd,0,0,0,0,0,))
-        c.execute("INSERT INTO leaderboard (username, wins) VALUES(?,?)",(user, 0))
+        c.execute("INSERT INTO leaderboard (wins) VALUES(?)",(0,))
         db.commit()
         db.close()
         return "Account creation successful"

@@ -7,7 +7,7 @@ import urllib
 
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
-from util import auth, accessors, mutators
+from util import db, auth
 
 #from util import auth, adders, getters
 
@@ -93,7 +93,14 @@ def home():
 
 @app.route('/leaders')
 def leaders():
-    return render_template("leaders.html")
+    leader_ids = db.findAll('leaderboard')
+    leaders = []
+    for leader in leader_ids:
+        id = leader[0]
+        username = db.findInfo('userInfo', id, 'userID', fetchOne=True)[1]
+        user = [username, leader[1]]
+        leaders.append(user)
+    return render_template("leaders.html", leaders=leaders)
 
 @app.route('/market')
 def market():
