@@ -14,26 +14,41 @@ c.execute("CREATE TABLE IF NOT EXISTS userInfo(userID INTEGER PRIMARY KEY AUTOIN
 c.execute("CREATE TABLE IF NOT EXISTS leaderboard(userID INTEGER, Wins INTEGER)")
 
 '''creates table to store Pokemon information'''
-c.execute("CREATE TABLE IF NOT EXISTS pokeInfo(pokeID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, Health INTEGER, Attack INTEGER, Speed INTEGER, Type TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS pokeInfo(pokeID INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, Health INTEGER, Attack FLOAT, Speed INTEGER, Type TEXT)")
 
-#for i in 
-poke = "https://pokeapi.co/api/v2/pokemon/squirtle/"
-response = urllib.request.Request(poke)
-response.add_header('User-Agent',"Mozilla")
-response = urllib.request.urlopen(response)
-obj = json.loads(response.read())
+'''copy info from PokeAPI'''
 
-name = obj['name']
-health = obj['stats'][5]['base_stat']
-attack = obj['stats'][4]['base_stat']
-speed = obj['stats'][0]['base_stat']
-typ = obj['types'][0]['type']['name']
+counter = 1
 
-print(name)
-print(health)
-print(attack)
-print(speed)
-print(typ)
+while (counter < 8):
+
+    '''access api and read json information'''
+    poke = "https://pokeapi.co/api/v2/pokemon/" + str(counter) + "/"
+    response = urllib.request.Request(poke)
+    response.add_header('User-Agent',"Mozilla")
+    response = urllib.request.urlopen(response)
+    obj = json.loads(response.read())
+
+    '''load the parameters that we need from the json'''
+    name = obj['name']
+    health = obj['stats'][5]['base_stat']
+    attack = int((obj['stats'][4]['base_stat']) / 10)
+    speed = int((obj['stats'][0]['base_stat']) / 4)
+
+    if (counter == 1): #for bulbasaur's weird typing
+        typ = obj['types'][1]['type']['name']
+    else:
+        typ = obj['types'][0]['type']['name']
+
+#    print(name)
+#    print(health)
+#    print(attack)
+#    print(speed)
+#    print(typ)
+
+    c.execute("INSERT INTO pokeInfo(name, Health, Attack, Speed, Speed) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ))
+
+    counter += 3
 
 db.commit()
 db.close()
