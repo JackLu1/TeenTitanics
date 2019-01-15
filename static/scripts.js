@@ -27,7 +27,7 @@ function Pokemon(name,speed){
 	this.hp=50;
 	this.speed=speed;
 	this.img = new Image();
-	this.img.src= name+".png";
+	this.img.src="../static/"+name+".png";
 	this.maxBomb=2;
 }
 var tileX=(xCor/50)|0;
@@ -118,7 +118,7 @@ var last_clicked = 0;
 window.addEventListener("keydown",function(e){
 	var keypress= e.key;
 	if(validKeys.indexOf(keypress)>-1){
-		if(Date.now()-last_clicked <250)return;
+		if(Date.now()-last_clicked <500)return;
 		last_clicked = Date.now();
 		movement(keypress,50);
 	}
@@ -260,5 +260,5 @@ function movement(direction,step){
   }
 }*/
 console.log(mapArr);
-setInterval(function(){document.getElementById("stat").innerHTML="HP:"+pkmn.hp;tileX=(xCor/50)|0;
+setInterval(function(){tileX=(xCor/50)|0;
 tileY=(yCor/50)|0;},500);
