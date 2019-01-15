@@ -52,3 +52,46 @@ while (counter < 8):
 
 db.commit()
 db.close()
+
+def findAll(tableName):
+    '''returns entire record with specific value at specific column from specified db table'''
+
+    command = "SELECT * from {0}'".format(tableName)
+    c.execute(command)
+
+    info = c.fetchall()
+    return info
+
+def findInfo(tableName,filterValue,colToFilt, sortCol = None, notEqual = None, fetchOne = None, asSubstring= False):
+    '''returns entire record with specific value at specific column from specified db table'''
+    if notEqual:
+        boolEqual = '!'
+    else:
+        boolEqual = ''
+
+    if sortCol:
+        sortQuery = 'ORDER BY {}'.format(sortCol)
+    else:
+        sortQuery = ''
+
+    if asSubstring:
+        filterValue = '%' + filterValue + '%'
+        eq = 'LIKE'
+    else:
+        eq = '='
+
+    command = "SELECT * FROM  '{0}'  WHERE {1} {3}{4} '{2}'".format(tableName,colToFilt,filterValue, boolEqual, eq)
+    command += sortQuery
+    c.execute(command)
+
+    listInfo = []
+    if fetchOne:
+        info = c.fetchone()
+    else:
+        info = c.fetchall()
+
+    if info:
+        for col in info:
+            #print(col)-
+            listInfo.append(col)
+    return listInfo
