@@ -93,7 +93,7 @@ def home():
 
 @app.route('/leaders')
 def leaders():
-    leader_ids = db.findAll('leaderboard')
+    leader_ids = db.findAll('leaderboard')[:20]
     leaders = []
     for leader in leader_ids:
         id = leader[0]
