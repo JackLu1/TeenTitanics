@@ -118,7 +118,7 @@ var last_clicked = 0;
 window.addEventListener("keydown",function(e){
 	var keypress= e.key;
 	if(validKeys.indexOf(keypress)>-1){
-		if(Date.now()-last_clicked <250)return;
+		if(Date.now()-last_clicked <500)return;
 		last_clicked = Date.now();
 		movement(keypress,50);
 	}
