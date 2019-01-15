@@ -34,3 +34,7 @@ a:hover {
   color: #ec96a4;
   background-color:white;
 }
+
+#leaderboard {
+  text-align: left;
+}

@@ -2,7 +2,7 @@
 {% block title %}Home Page - {% endblock %}
 {% block body %}
 
-<center><p>Please log in below, or create an account <a href="/register">here</a></p></center>
+<br><center><p>Please log in below, or create an account <a href="/register">here</a></p></center>
 <br>
 <div class ="col-sm-2 col-lg-4"></div>
 <div class= "col-sm-6 col-lg-4">
@@ -28,4 +28,4 @@
 </center>
 <div class="col-sm-2 col-lg-4"></div>
 {% endblock %}
-{% block logout %}{% endblock %}
+{% block logout %}<br><br><center><a href = '/'>Back</a></center><a href = '/logout'>Log Out</a>{% endblock %}
