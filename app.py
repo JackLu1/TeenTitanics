@@ -104,7 +104,10 @@ def leaders():
 
 @app.route('/profile')
 def profile():
-    user = request.form['user']
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     # stuff = user_info[???]
     return render_template("profile.html",
