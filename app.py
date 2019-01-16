@@ -102,9 +102,15 @@ def leaders():
         leaders.append(user)
     return render_template("leaders.html", leaders=leaders)
 
-@app.route('/market')
-def market():
-    return render_template("market.html")
+@app.route('/profile')
+def profile():
+    user = request.form['user']
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    # stuff = user_info[???]
+    return render_template("profile.html",
+                            username = user,
+
+    )
 
 @app.route('/start')
 def start():
