@@ -37,4 +37,10 @@ a:hover {
 
 #leaderboard {
   text-align: left;
+  width: 19%;
+}
+
+#style {
+  text-align: left;
+  width: 30%;
 }

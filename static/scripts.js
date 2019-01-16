@@ -190,7 +190,7 @@ function action(time,xLoc,yLoc){
 		renderBase(xLoc,yLoc-50,50,50);
 		mapArr[xTile][yTile-1]=empty;
 	}
-	if(southCon&&mapArr[xTile][yTile-2]==empty){	
+	if(southCon&&mapArr[xTile][yTile-2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc-100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-2);}
 	}
@@ -198,7 +198,7 @@ function action(time,xLoc,yLoc){
 		renderBase(xLoc,yLoc-100,50,50);
 		mapArr[xTile][yTile-2]=empty;
 	}
-	if(mapArr[xTile][yTile+1]==empty){	
+	if(mapArr[xTile][yTile+1]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+50,50,50);
 		northCon=true;
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+1);}
@@ -206,7 +206,7 @@ function action(time,xLoc,yLoc){
 	if(mapArr[xTile][yTile+1]==brickV){
 		renderBase(xLoc,yLoc+50,50,50);
 		mapArr[xTile][yTile+1]=empty;
-	}	
+	}
 	if(northCon&&mapArr[xTile][yTile+2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+2);}
@@ -217,7 +217,7 @@ function action(time,xLoc,yLoc){
 	}
 	}
 	renderChar();
-	//var startTime=new Date();	
+	//var startTime=new Date();
 	if (time<5){
 	  time++;
 	  setTimeout(function(){action(time,xLoc,yLoc);},1000);

@@ -93,7 +93,7 @@ def home():
 
 @app.route('/leaders')
 def leaders():
-    leader_ids = db.findAll('leaderboard')
+    leader_ids = db.findAll('leaderboard')[:20]
     leaders = []
     for leader in leader_ids:
         id = leader[0]
@@ -102,9 +102,18 @@ def leaders():
         leaders.append(user)
     return render_template("leaders.html", leaders=leaders)
 
-@app.route('/market')
-def market():
-    return render_template("market.html")
+@app.route('/profile')
+def profile():
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    # stuff = user_info[???]
+    return render_template("profile.html",
+                            username = user,
+
+    )
 
 @app.route('/start')
 def start():
