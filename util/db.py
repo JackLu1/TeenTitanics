@@ -134,6 +134,4 @@ def leaderboard():
         entry = []
     db.close()
     return entries
-
-print(leaderboard())
     
