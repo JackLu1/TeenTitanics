@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block body %}
+<center>
+  <h2>
+      <pre>
+      </pre>
+  </h2>
+    <h2>Bomber Market</h2><br>
+
+    <div class="container" id="profile">
+
+      Hi {{username}}!<br>
+      Balance: ${{money}}<br><br>
+
+      <form action='/newpoke' method = 'POST'>
+        <a href = '/newpoke' type='button' id='newpoke'>GET NEW BOMBERMON</a>
+      </form>
+    </div><br>
+    <br>
+</center>
+{% endblock %}

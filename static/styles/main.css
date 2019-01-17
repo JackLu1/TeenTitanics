@@ -44,3 +44,13 @@ a:hover {
   text-align: left;
   width: 30%;
 }
+
+#newpoke {
+  background-color: white;
+  color: #5D535E;
+  font-size: 28px;
+}
+
+#newpoke:hover {
+  font-size: 38px;
+}

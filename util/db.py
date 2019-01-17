@@ -116,6 +116,14 @@ def findInfo(tableName,filterValue,colToFilt, sortCol = None, notEqual = None, f
         for col in info:
             #print(col)-
             listInfo.append(col)
-    
+
     db.close()
     return listInfo
+
+def modify(tableName, colToMod, newVal, filterIndex, filterValue):
+    db = sqlite3.connect("data/info.db")
+    c = db.cursor()
+    print(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
+    c.execute(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
+    db.commit()
+    db.close()

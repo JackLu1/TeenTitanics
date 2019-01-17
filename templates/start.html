@@ -10,21 +10,13 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-sm">
-          <a href="/game">
-              <img src="{{url_for('static', filename='bulbasaur.png')}}" width=50%/>
-          </a>
-        </div>
-        <div class="col-sm">
-          <a href="/game">
-              <img src="{{url_for('static', filename='charmander.png')}}" width=50%/>
-          </a>
-        </div>
-        <div class="col-sm">
-          <a href="/game">
-              <img src="{{url_for('static', filename='squirtle.png')}}" width=50%/>
-          </a>
-        </div>
+        {% for pokemon in pokemons %}
+          <div class="col-sm">
+            <a href="/game">
+                <img src="{{url_for('static', filename=pokemon)}}" width=50%/>
+            </a>
+          </div>
+        {% endfor %}
       </div>
     </div><br>
     <br>

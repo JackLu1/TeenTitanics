@@ -123,3 +123,9 @@ caiC -- 2019-01-16 09:14
 - Added new profile page
 - Linked profile page to database
 ==============================================================
+
+caiC -- 2019-01-16 19:48
+--------------------------------------------------------------
+- Mostly finished marketplace feature
+- Linking game to Pokemon database
+==============================================================
