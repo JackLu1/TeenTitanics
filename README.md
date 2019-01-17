@@ -75,4 +75,4 @@ $ . venv/bin/activate
 - IpAPI : https://ipapi.co/, use to track user's location so we can put the coordinates into the weather api, no API key needed, limit of 1000 calls per day 
 - Forecast.Io: https://darksky.net/dev, used to get the weather conditions of the user so that we can provide weather effects based on the weather in his location. To procure keys, sign up with an email. Then, click the link that is sent to your email. The quota is 1000 requests per day for free
 
-Once you have gotten your own key, go to key.json in the data folder and replace each respective database key-value pair strings with your key value. 
+Once you have gotten your own key, go to key.json in the data folder and replace the dummy key value with your key value. 
