@@ -21,7 +21,7 @@ var explosionV=4;
 var empty=0;
 function Pokemon(name,speed,startX,startY){
 	this.name=name;
-	this.hp=50;
+	this.hp=25;
 	this.speed=speed;
 	this.img = new Image();
 	this.img.src="../static/"+name+".png";
@@ -41,7 +41,7 @@ for(var i=0;i<mapWidth;i++){
 }
 //var pkmn= new Pokemon("squirtle",1); //1 player
 var pkmn0=new Pokemon("squirtle",1,50,50); //2 players now
-var pkmn1=new Pokemon("charmander",1,950,450);
+var pkmn1=new Pokemon("pikachu",1,950,450);
 //pkmn.img.onload = function (){
 window.onload=function(){
 	renderBase(0,0,canvas.width,canvas.height);
@@ -303,7 +303,7 @@ function movement(direction,step,array,pkmn){
 console.log(mapArr);
 setInterval(function(){
 	if(pkmn0.hp && pkmn1.hp){
-		document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+"Number of P0 Bombs: "+pkmn0.maxBomb+"<br>Player 2 HP: "+pkmn1.hp+"Number of P1 Bombs: "+pkmn1.maxBomb;
+		document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+" P0 Bombs: "+pkmn0.maxBomb+"<br>Player 2 HP: "+pkmn1.hp+" P1 Bombs: "+pkmn1.maxBomb;
 		}
 		else{
 			if(pkmn0.hp>pkmn1.hp){
