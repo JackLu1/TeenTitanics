@@ -52,7 +52,7 @@ function updatePkmn(){
 	//ctx.drawImage(pkmn.img,xCor,yCor,50,50); 1 player
 	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 players
 	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
-	document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
+	document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+"<br>Player 2 HP: "+pkmn1.hp;
 }
 function createBoard(){
 	var row;
@@ -213,7 +213,7 @@ function action(time,xLoc,yLoc,pkmn){
 		renderBase(xLoc,yLoc-50,50,50);
 		mapArr[xTile][yTile-1]=empty;
 	}
-	if(southCon&&mapArr[xTile][yTile-2]==empty){	
+	if(southCon&&mapArr[xTile][yTile-2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc-100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-2,pkmn);}
 	}
@@ -221,7 +221,7 @@ function action(time,xLoc,yLoc,pkmn){
 		renderBase(xLoc,yLoc-100,50,50);
 		mapArr[xTile][yTile-2]=empty;
 	}
-	if(mapArr[xTile][yTile+1]==empty){	
+	if(mapArr[xTile][yTile+1]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+50,50,50);
 		northCon=true;
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+1,pkmn);}
@@ -229,7 +229,7 @@ function action(time,xLoc,yLoc,pkmn){
 	if(mapArr[xTile][yTile+1]==brickV){
 		renderBase(xLoc,yLoc+50,50,50);
 		mapArr[xTile][yTile+1]=empty;
-	}	
+	}
 	if(northCon&&mapArr[xTile][yTile+2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+2,pkmn);}
@@ -240,7 +240,7 @@ function action(time,xLoc,yLoc,pkmn){
 	}
 	}
 	renderChar();
-	//var startTime=new Date();	
+	//var startTime=new Date();
 	if (time<5){
 	  time++;
 	  setTimeout(function(){action(time,xLoc,yLoc,pkmn);},1000);

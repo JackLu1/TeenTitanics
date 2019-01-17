@@ -7,11 +7,13 @@
 </head>
 {% block body %}
 <body>
+
   <div id = "game">
-    <br><center><canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas>
+
+    <br><center><canvas id ="canvas" width ="1050" height="550"></canvas><br>
       <center>
 	<script src="../static/scripts.js"></script>
-	
+
 	<div class="container">
 	  <div class="row">
 	    <div class="col-sm">
@@ -40,13 +42,14 @@
 	    </div>
 	  </div>
 	</div>
-	
-	
 
-	<p id="stat"></p>
-	<div id="effect"> Weather: {{effect}} </div>
+
+  <div id="sidepanel">
+  	<p id="stat"></p>
+  	<div id="effect"> Weather: {{effect}} </div><br>
   </div>
-  
+
+
 </body>
 
 {% endblock %}
@@ -58,3 +61,4 @@
 
 {% block footer %}
 {% endblock %}
+</div>
