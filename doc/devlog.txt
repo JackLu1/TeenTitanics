@@ -135,3 +135,16 @@ caiC -- 2019-01-16 19:48
 - Mostly finished marketplace feature
 - Linking game to Pokemon database
 ==============================================================
+
+mingM -- 2019-01-16 23:24
+--------------------------------------------------------------
+- Added two-player support to game.
+==============================================================
+
+linR -- 2019-01-16 23:53
+--------------------------------------------------------------
+- Final changes to design doc:
+- Removed bots feature
+- Removed leaderboard table and updated other fields in other tables
+- Switched order that you pick Pokemon
+==============================================================
