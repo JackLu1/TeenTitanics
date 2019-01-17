@@ -51,7 +51,7 @@ if empty:
 
         c.execute("INSERT INTO pokeInfo(name, health, attack, speed, type) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ,))
 
-        counter += 3
+        counter += 1
 
 #c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",("324ware","234",0,0,0,0,0,19))
 #c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",("234wera","pswd",0,0,0,0,0,3))

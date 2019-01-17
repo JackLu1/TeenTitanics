@@ -120,7 +120,9 @@ def start():
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     slots = user_info[3]
     pokemon_images = []
+    print ('heres the info')
     poke_info = db.findAll('pokeInfo')[:slots]
+    print (poke_info)
     for poke in poke_info:
         pokemon_images.append(poke[1] + '.png')
     return render_template("start.html",
