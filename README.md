@@ -37,17 +37,12 @@ Activate the virtual environment
 .<name of venv>/bin/activate
 ```
 
-Installing Wheel:
+Installing necessary requirements:
 
 ```
-pip3 install wheel
+pip3 install -r requirements.txt
 ```
 
-Installing Flask:
-
-```
-pip3 install flask
-```
  
 ## Launch instructions
 1. Clone this repo.
