@@ -93,39 +93,39 @@ def findInfo(tableName,filterValue,colToFilt, sortCol = None, notEqual = None, f
    else:
        sortQuery = ''
 
-    if notEqual:
-        boolEqual = '!'
-    else:
-        boolEqual = ''
+   if notEqual:
+       boolEqual = '!'
+   else:
+       boolEqual = ''
 
-    if sortCol:
-        sortQuery = 'ORDER BY {}'.format(sortCol)
-    else:
-        sortQuery = ''
+   if sortCol:
+       sortQuery = 'ORDER BY {}'.format(sortCol)
+   else:
+       sortQuery = ''
 
-    if asSubstring:
-        filterValue = '%' + filterValue + '%'
-        eq = 'LIKE'
-    else:
-        eq = '='
+   if asSubstring:
+       filterValue = '%' + filterValue + '%'
+       eq = 'LIKE'
+   else:
+       eq = '='
 
-    command = "SELECT * FROM  '{0}'  WHERE {1} {3}{4} '{2}'".format(tableName,colToFilt,filterValue, boolEqual, eq)
-    command += sortQuery
-    c.execute(command)
+   command = "SELECT * FROM  '{0}'  WHERE {1} {3}{4} '{2}'".format(tableName,colToFilt,filterValue, boolEqual, eq)
+   command += sortQuery
+   c.execute(command)
 
-    listInfo = []
-    if fetchOne:
-        info = c.fetchone()
-    else:
-        info = c.fetchall()
+   listInfo = []
+   if fetchOne:
+       info = c.fetchone()
+   else:
+       info = c.fetchall()
 
-    if info:
-        for col in info:
-            #print(col)-
-            listInfo.append(col)
+   if info:
+       for col in info:
+           #print(col)-
+           listInfo.append(col)
 
-    db.close()
-    return listInfo
+   db.close()
+   return listInfo
 
 def modify(tableName, colToMod, newVal, filterIndex, filterValue):
     db = sqlite3.connect("data/info.db")
