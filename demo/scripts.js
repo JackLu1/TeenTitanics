@@ -5,9 +5,6 @@ var ctx=canvas.getContext("2d");
 pre_canvas.width=canvas.width; //I'll pre-render later
 pre_canvas.height=canvas.height;
 var pre_ctx=pre_canvas.getContext("2d");*/
-//starting position
-var xCor=50;
-var yCor=50;
 //image processing
 var wall = new Image();
 wall.src="../static/wall.png";
@@ -22,16 +19,18 @@ var explosion = new Image();
 explosion.src="../static/explosion4.png";
 var explosionV=4;
 var empty=0;
-function Pokemon(name,speed){
+function Pokemon(name,speed,startX,startY){
 	this.name=name;
 	this.hp=50;
 	this.speed=speed;
 	this.img = new Image();
 	this.img.src="../static/"+name+".png";
 	this.maxBomb=2;
+	this.xCor=startX;
+	this.yCor=startY;
+	this.tileX=(startX/50)|0;
+	this.tileY=(startY/50)|0;
 }
-var tileX=(xCor/50)|0;
-var tileY=(yCor/50)|0;
 //Map tile amount
 var mapHeight=(canvas.height/50)|0;
 var mapWidth=(canvas.width/50)|0;
@@ -40,15 +39,20 @@ var mapArr= new Array(mapHeight).fill(empty);
 for(var i=0;i<mapWidth;i++){
 	mapArr[i]=new Array(mapHeight).fill(empty);//decimal pipe is cool
 }
-var pkmn= new Pokemon("squirtle",1);
-pkmn.img.onload = function (){
+//var pkmn= new Pokemon("squirtle",1); //1 player
+var pkmn0=new Pokemon("squirtle",1,50,50); //2 players now
+var pkmn1=new Pokemon("charmander",1,950,450);
+//pkmn.img.onload = function (){
+window.onload=function(){
 	renderBase(0,0,canvas.width,canvas.height);
 	createBoard();
 	updatePkmn();
 };
 function updatePkmn(){
-	ctx.drawImage(pkmn.img,xCor,yCor,50,50);
-	document.getElementById("stat").innerHTML="HP:"+pkmn.hp;
+	//ctx.drawImage(pkmn.img,xCor,yCor,50,50); 1 player
+	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 players
+	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
+	document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
 }
 function createBoard(){
 	var row;
@@ -93,7 +97,9 @@ function renderBase(startX,startY,width,height){
 	ctx.fillRect(startX, startY, width, height);
 }
 function renderChar(){
-	ctx.drawImage(pkmn.img, xCor, yCor,50,50);
+	//ctx.drawImage(pkmn.img, xCor, yCor,50,50); 1 player
+	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 player
+	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
 }
 function renderBoard(){
 	renderBase(0,0,canvas.height,canvas.width);
@@ -113,26 +119,36 @@ function renderBoard(){
 		}
 	}
 }
-var validKeys = ["w","a","s","d"];
-var last_clicked = 0;
+var validKeysP0 = ["w","a","s","d"];//for player one
+var validKeysP1 = ["ArrowUp","ArrowLeft","ArrowDown","ArrowRight"];//for player two
+var last_clicked0 = 0;//player 1 buffer
+var last_clicked1 = 0;//player 2 buffer
 window.addEventListener("keydown",function(e){
 	var keypress= e.key;
-	if(validKeys.indexOf(keypress)>-1){
-		if(Date.now()-last_clicked <500)return;
-		last_clicked = Date.now();
-		movement(keypress,50);
+	if(validKeysP0.indexOf(keypress)>-1){
+		if(Date.now()-last_clicked0 <500)return;
+		last_clicked0 = Date.now();
+		movement(keypress,50,validKeysP0,pkmn0);
+	}
+	else if(validKeysP1.indexOf(keypress)>-1){
+		if(Date.now()-last_clicked1 <500)return;
+		last_clicked1 = Date.now();
+		movement(keypress,50,validKeysP1,pkmn1);
 	}
 	else if(keypress==" "){
-		action(1,xCor,yCor);
+		action(1,pkmn0.xCor,pkmn0.yCor,pkmn0);
+	}
+	else if(keypress=="0"){
+		action(1,pkmn1.xCor,pkmn1.yCor,pkmn1);
 	}
 });
-function loseHp(locX,locY){
-	if((locX ==tileX) &&(locY==tileY)){
+function loseHp(locX,locY,pkmn){
+	if((locX ==pkmn.tileX) &&(locY==pkmn.tileY)){
 		pkmn.hp-=5;
 		return true;
 	}
 }
-function action(time,xLoc,yLoc){
+function action(time,xLoc,yLoc,pkmn){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	renderBoard();
 	if(time<4){
@@ -147,10 +163,11 @@ function action(time,xLoc,yLoc){
 	var xTile=(xLoc/50)|0;//yes i have good naming conventions
 	var yTile=(yLoc/50)|0;
 	ctx.drawImage(explosion,xLoc,yLoc,50,50);
+	if(!dealtDmg){dealtDmg=loseHp(xTile,yTile,pkmn);}
 	if(mapArr[xTile-1][yTile]==empty){
 		ctx.drawImage(explosion,xLoc-50,yLoc,50,50);
 		westCon=true;
-		if(!dealtDmg){dealtDmg=loseHp(xTile-1,yTile);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile-1,yTile,pkmn);}
 	}
 	if(mapArr[xTile-1][yTile]==brickV){
 		renderBase(xLoc-50,yLoc,50,50);
@@ -158,7 +175,7 @@ function action(time,xLoc,yLoc){
 	}
 	if(westCon&&mapArr[xTile-2][yTile]==empty){
 		ctx.drawImage(explosion,xLoc-100,yLoc,50,50);
-		if(!dealtDmg){dealtDmg=loseHp(xTile-2,yTile);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile-2,yTile,pkmn);}
 	}
 	if(westCon&&mapArr[xTile-2][yTile]==brickV){
 		renderBase(xLoc-100,yLoc,50,50);
@@ -167,7 +184,7 @@ function action(time,xLoc,yLoc){
 	if(mapArr[xTile+1][yTile]==empty){
 		ctx.drawImage(explosion,xLoc+50,yLoc,50,50);
 		eastCon=true;
-		if(!dealtDmg){dealtDmg=loseHp(xTile+1,yTile);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile+1,yTile,pkmn);}
 	}
 	if(mapArr[xTile+1][yTile]==brickV){
 		renderBase(xLoc+50,yLoc,50,50);
@@ -175,7 +192,7 @@ function action(time,xLoc,yLoc){
 	}
 	if(eastCon&&mapArr[xTile+2][yTile]!=wallV){
 		ctx.drawImage(explosion,xLoc+100,yLoc,50,50);
-		if(!dealtDmg){dealtDmg=loseHp(xTile+2,yTile);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile+2,yTile,pkmn);}
 	}
 	if(eastCon&&mapArr[xTile+2][yTile]==brickV){
 		renderBase(xLoc+100,yLoc,50,50);
@@ -184,7 +201,7 @@ function action(time,xLoc,yLoc){
 	if(mapArr[xTile][yTile-1]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc-50,50,50);
 		southCon=true;
-		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-1);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-1,pkmn);}
 	}
 	if(mapArr[xTile][yTile-1]==brickV){
 		renderBase(xLoc,yLoc-50,50,50);
@@ -192,7 +209,7 @@ function action(time,xLoc,yLoc){
 	}
 	if(southCon&&mapArr[xTile][yTile-2]==empty){	
 		ctx.drawImage(explosion,xLoc,yLoc-100,50,50);
-		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-2);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-2,pkmn);}
 	}
 	if(southCon&&mapArr[xTile][yTile-2]==brickV){
 		renderBase(xLoc,yLoc-100,50,50);
@@ -201,7 +218,7 @@ function action(time,xLoc,yLoc){
 	if(mapArr[xTile][yTile+1]==empty){	
 		ctx.drawImage(explosion,xLoc,yLoc+50,50,50);
 		northCon=true;
-		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+1);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+1,pkmn);}
 	}
 	if(mapArr[xTile][yTile+1]==brickV){
 		renderBase(xLoc,yLoc+50,50,50);
@@ -209,7 +226,7 @@ function action(time,xLoc,yLoc){
 	}	
 	if(northCon&&mapArr[xTile][yTile+2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+100,50,50);
-		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+2);}
+		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+2,pkmn);}
 	}
 	if(northCon&&mapArr[xTile][yTile+2]==brickV){
 		renderBase(xLoc,yLoc+100,50,50);
@@ -220,33 +237,33 @@ function action(time,xLoc,yLoc){
 	//var startTime=new Date();	
 	if (time<5){
 	  time++;
-	  setTimeout(function(){action(time,xLoc,yLoc);},1000);
+	  setTimeout(function(){action(time,xLoc,yLoc,pkmn);},1000);
   }
 }
 //var reached =false;
-function movement(direction,step){
+function movement(direction,step,array,pkmn){
 	while(step){
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	renderBoard();
 	switch(direction){
-		case "w":
-			if(!mapArr[tileX][tileY-1]){
-				yCor -= pkmn.speed;
+		case array[0]:
+			if(!mapArr[pkmn.tileX][pkmn.tileY-1]){
+				pkmn.yCor -= pkmn.speed;
 			}
 		break;
-		case "a":
-			if(!mapArr[tileX-1][tileY]){
-				xCor -= pkmn.speed;
+		case array[1]:
+			if(!mapArr[pkmn.tileX-1][pkmn.tileY]){
+				pkmn.xCor -= pkmn.speed;
 			}
 		break;
-		case "s":
-			if(!mapArr[tileX][tileY+1]){
-				yCor += pkmn.speed;
+		case array[2]:
+			if(!mapArr[pkmn.tileX][pkmn.tileY+1]){
+				pkmn.yCor += pkmn.speed;
 			}
 		break;
-		case "d":
-			if(!mapArr[tileX+1][tileY]){
-				xCor += pkmn.speed;
+		case array[3]:
+			if(!mapArr[pkmn.tileX+1][pkmn.tileY]){
+				pkmn.xCor += pkmn.speed;
 			}
 		break;
 	}
@@ -260,5 +277,5 @@ function movement(direction,step){
   }
 }*/
 console.log(mapArr);
-setInterval(function(){document.getElementById("stat").innerHTML="HP:"+pkmn.hp;tileX=(xCor/50)|0;
-tileY=(yCor/50)|0;},500);
+setInterval(function(){document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;pkmn0.tileX=(pkmn0.xCor/50)|0;pkmn1.tileX=(pkmn1.xCor/50)|0;
+pkmn0.tileY=(pkmn0.yCor/50)|0;pkmn1.tileY=(pkmn1.yCor/50)|0;},500);
