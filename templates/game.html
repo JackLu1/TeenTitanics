@@ -1,26 +1,59 @@
 {% extends 'base.html' %}
 
-  <head>
-    {% block head %}
-      <!-- <center><a class="display-4 text-center" id="logo">BOMBERMON</a><center> -->
-    {% endblock %}
-  </head>
-  {% block body %}
-  <body>
+<head>
+  {% block head %}
+  <!-- <center><a class="display-4 text-center" id="logo">BOMBERMON</a><center> -->
+  {% endblock %}
+</head>
+{% block body %}
+<body>
   <div id = "game">
-  <br><center><canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas>
-  <center>
-  <script src="../static/scripts.js"></script>
-  <p id="stat"></p>
-  <div id="effect"> Weather: {{effect}} </div>
+    <br><center><canvas id ="canvas" width ="1050" height="550" style="border:1px solid black;"></canvas>
+      <center>
+	<script src="../static/scripts.js"></script>
+	
+	<div class="container">
+	  <div class="row">
+	    <div class="col-sm">
+	      <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+		<div class="card-header">
+		  <b>Player 1</b>
+		</div>
+		<ul class="list-group list-group-flush">
+		  <li class="list-group-item text-dark bg-light" id="p1hp">Cras justo odio</li>
+		  <li class="list-group-item text-dark bg-light">Dapibus ac facilisis in</li>
+		  <li class="list-group-item text-dark bg-light">Vestibulum at eros</li>
+		</ul>
+	      </div>
+	    </div>
+	    <div class="col-sm">
+	      <div class="card text-white bg-dark mb-3" style="width: 18rem;">
+		<div class="card-header">
+		  <b>Player 2</b>
+		</div>
+		<ul class="list-group list-group-flush">
+		  <li class="list-group-item text-dark bg-light" id="p2hp">Cras justo odio</li>
+		  <li class="list-group-item text-dark bg-light">Dapibus ac facilisis in</li>
+		  <li class="list-group-item text-dark bg-light">Vestibulum at eros</li>
+		</ul>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+
+	<p id="stat"></p>
+	<div id="effect"> Weather: {{effect}} </div>
   </div>
+  
 </body>
 
 {% endblock %}
 
 {% block logout %}
-  <br><center><a href = '/start'>Back</a></center>
-  <center><a href = '/logout'>Log Out</a></center>
+<br><center><a href = '/start'>Back</a></center>
+<center><a href = '/logout'>Log Out</a></center>
 {% endblock %}
 
 {% block footer %}
