@@ -148,3 +148,8 @@ linR -- 2019-01-16 23:53
 - Removed leaderboard table and updated other fields in other tables
 - Switched order that you pick Pokemon
 ==============================================================
+
+mingM -- 2019-01-17 1:18
+--------------------------------------------------------------
+- Added character death.
+==============================================================

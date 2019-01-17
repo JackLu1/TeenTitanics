@@ -54,3 +54,8 @@ a:hover {
 #newpoke:hover {
   font-size: 38px;
 }
+
+#help {
+  text-align: left;
+  left: 50%;
+}

@@ -3,17 +3,19 @@
 import json
 import os
 import urllib
-#import datetime
 
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
-from util import db, auth, temp
-
-#from util import auth, adders, getters
+from util import db, auth
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
+
+#obtains keys to use from key database
+with open("data/key.json") as f:
+    data = json.loads(f.read())
+    key=data["key"]
 
 @app.route("/")
 def index():
@@ -119,19 +121,45 @@ def start():
         return redirect('/')
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     slots = user_info[3]
+    print(slots)
     pokemon_images = []
     print ('heres the info')
     poke_info = db.findAll('pokeInfo')[:slots]
-    print (poke_info)
     for poke in poke_info:
         pokemon_images.append(poke[1] + '.png')
+    print(pokemon_images)
     return render_template("start.html",
                             pokemons = pokemon_images
     )
 
 @app.route('/game')
 def game():
-    return render_template("game.html")
+
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+
+    ip = "https://ipapi.co/json/"
+    response = urllib.request.urlopen(ip)
+    obj = json.loads(response.read())
+    lat = str(obj['latitude'])
+    lon = str(obj['longitude'])
+    weather = "https://api.darksky.net/forecast/" + key + "/" + lat + "," + lon
+    response = urllib.request.urlopen(weather)
+    obj = json.loads(response.read())
+    condition = obj['currently']['icon']
+    effect = ''
+    #print(conditon)
+    if ('cloudy' in condition.lower()):
+        effect = 'cloudy'
+    elif ("clear" in condition.lower()):
+        effect = 'clear'
+    elif ('rain' in condition.lower()):
+        effect = 'rain'
+    else:
+        effect = 'none'
+    return render_template("game.html", effect = effect)
 
 @app.route('/newpoke', methods=['POST', 'GET'])
 def newpoke():
