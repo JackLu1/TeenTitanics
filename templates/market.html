@@ -14,7 +14,11 @@
 
       <form action='/newpoke' method = 'POST'>
         <a href = '/newpoke' type='button' id='newpoke'>GET NEW BOMBERMON</a>
-      </form>
+      </form><br>
+      {% set msgs = get_flashed_messages() %}
+      {% for each in msgs%}
+      <i>{{each}}</i>
+      {% endfor %}
     </div><br>
     <br>
 </center>

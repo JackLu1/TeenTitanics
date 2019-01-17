@@ -140,14 +140,21 @@ def newpoke():
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     money = user_info[7]
     # assuming 3 slots initiated
-    slots = user_info[3]
-    poke_info = db.findAll('pokeInfo')
-    # new_poke = poke_info[slots]
-    new_poke = poke_info[0]
-    slots += 1
-    db.modify('userInfo', 'slots', slots, 'username', user)
-    db.modify('userInfo', 'money', money - 200, 'username', user)
-    return redirect('/start')
+    if money >= 200:
+        slots = user_info[3]
+        poke_info = db.findAll('pokeInfo')
+        # new_poke = poke_info[slots]
+        new_poke = poke_info[0]
+        slots += 1
+        db.modify('userInfo', 'slots', slots, 'username', user)
+        db.modify('userInfo', 'money', money - 200, 'username', user)
+        return redirect('/start')
+    else:
+        flash ("You don't have enough money! Earn money by winning a new game.")
+        return render_template("market.html",
+                                username=user,
+                                money=money
+        )
 
 if __name__ == "__main__":
     app.debug = True
