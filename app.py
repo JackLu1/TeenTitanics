@@ -125,6 +125,7 @@ def start():
     pokemon_images = []
     print ('heres the info')
     poke_info = db.findAll('pokeInfo')[:slots]
+    print(poke_info)
     for poke in poke_info:
         pokemon_images.append(poke[1] + '.png')
     print(pokemon_images)

@@ -51,7 +51,6 @@ if empty:
 
         c.execute("INSERT INTO pokeInfo(name, health, attack, speed, type) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ,))
 
-        counter += 1
         '''adds intermediate pokemon'''
         if (counter == 7):
             counter = -1
