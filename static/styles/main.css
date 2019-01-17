@@ -45,13 +45,13 @@ a:hover {
   width: 30%;
 }
 
-#newpoke {
+.newpoke {
   background-color: white;
   color: #5D535E;
   font-size: 28px;
 }
 
-#newpoke:hover {
+.newpoke:hover {
   font-size: 38px;
 }
 

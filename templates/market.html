@@ -13,8 +13,21 @@
       Balance: ${{money}}<br><br>
 
       <form action='/newpoke' method = 'POST'>
-        <a href = '/newpoke' type='button' id='newpoke'>GET NEW BOMBERMON</a>
+        <a href = '/newpoke' type='button' class='newpoke'>GET NEW BOMBERMON FOR {{price}} </a>
       </form><br>
+
+      <form action='/newhealth' method = 'POST'>
+        <a href = '/newhealth' type='button' class='newpoke'>GET MORE HEALTH FOR 100 </a>
+      </form><br>
+
+      <form action='/newattack' method = 'POST'>
+        <a href = '/newattack' type='button' class='newpoke'>GET MORE ATTACK 100 </a>
+      </form><br>
+
+      <form action='/newspeed' method = 'POST'>
+        <a href = '/newspeed' type='button' class='newpoke'>GET MORE SPEED 100 </a>
+      </form><br>
+
       {% set msgs = get_flashed_messages() %}
       {% for each in msgs%}
       <i>{{each}}</i>

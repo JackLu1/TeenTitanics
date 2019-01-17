@@ -106,10 +106,14 @@ def market():
         return redirect('/')
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     money = user_info[7]
+    slots = user_info[3] * 100
+    if (slots == 900):
+        slots = "NOTHING YOU HAVE EVERYTHING ALREADY"
     # stuff = user_info[???]
     return render_template("market.html",
                             username = user,
-                            money = money
+                            money = money,
+                            price = slots 
 
     )
 
@@ -168,23 +172,141 @@ def newpoke():
         user = session['user']
     except:
         return redirect('/')
+
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     money = user_info[7]
+    slots = user_info[3]
+    price = slots * 100
     # assuming 3 slots initiated
-    if money >= 200:
-        slots = user_info[3]
+    
+    if (slots == 9):
+        price = "NOTHING YOU HAVE EVERYTHING ALREADY"
+        flash("You have everything already!") 
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=price
+        )
+
+    elif money >= price:
         poke_info = db.findAll('pokeInfo')
         # new_poke = poke_info[slots]
         new_poke = poke_info[0]
         slots += 1
         db.modify('userInfo', 'slots', slots, 'username', user)
-        db.modify('userInfo', 'money', money - 200, 'username', user)
+        db.modify('userInfo', 'money', money - price, 'username', user)
         return redirect('/start')
+    
+    else:
+        if (slots == 9):
+            price = "NOTHING YOU HAVE EVERYTHING ALREADY"
+        flash ("You don't have enough money! Earn money by winning a new game.")
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=price
+        )
+
+@app.route('/newhealth', methods=['POST', 'GET'])
+def newhealth():
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    money = user_info[7]
+    health = user_info[4]
+    slots = user_info[3] * 100
+
+    if (slots == 900):
+        slots = "NOTHING YOU HAVE EVERYTHING ALREADY"
+    
+    if money >= 100:
+        health += 1
+        db.modify('userInfo', 'healthUpgrade', health, 'username', user)
+        db.modify('userInfo', 'money', money - 100, 'username', user)
+        money = money - 100
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=slots
+        )
+    
     else:
         flash ("You don't have enough money! Earn money by winning a new game.")
         return render_template("market.html",
                                 username=user,
-                                money=money
+                                money=money,
+                                price=slots
+        )
+
+@app.route('/newattack', methods=['POST', 'GET'])
+def newattack():
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    money = user_info[7]
+    attack = user_info[5]
+    slots = user_info[3] * 100
+
+    if (slots == 900):
+        slots = "NOTHING YOU HAVE EVERYTHING ALREADY"
+
+    if money >= 100:
+        attack += 1
+        db.modify('userInfo', 'attackUpgrade', attack, 'username', user)
+        db.modify('userInfo', 'money', money - 100, 'username', user) 
+        money = money - 100
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=slots 
+        )
+    
+    else:
+        flash ("You don't have enough money! Earn money by winning a new game.")
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=slots
+        )
+
+@app.route('/newspeed', methods=['POST', 'GET'])
+def newspeed():
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    money = user_info[7]
+    speed = user_info[6]
+    slots = user_info[3] * 100
+
+    if (slots == 900):
+        slots = "NOTHING YOU HAVE EVERYTHING ALREADY"
+
+    if money >= 100:
+        speed += 1
+        db.modify('userInfo', 'speedUpgrade', speed, 'username', user)
+        db.modify('userInfo', 'money', money - 100, 'username', user)
+        money = money - 100
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=slots
+        )
+    
+    else:
+        flash ("You don't have enough money! Earn money by winning a new game.")
+        return render_template("market.html",
+                                username=user,
+                                money=money,
+                                price=slots
         )
 
 if __name__ == "__main__":
