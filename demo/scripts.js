@@ -59,8 +59,8 @@ function createBoard(){
 	var col;
 	for(row =1;row<mapWidth-1;row++){
 		for(col=1;col<mapHeight-1;col++){
-			let chance = Math.random()*8|0;
-			if(chance){
+			let chance = Math.random()*2|0;
+			if(!chance){
 			ctx.drawImage(brick,row*50,col*50,50,50);
 			mapArr[row][col]=brickV;
 			}
