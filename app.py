@@ -15,8 +15,7 @@ app.secret_key = os.urandom(32)
 #obtains keys to use from key database
 with open("data/key.json") as f:
     data = json.loads(f.read())
-    key=data['key']
-
+    key=data["key"]
 
 @app.route("/")
 def index():
@@ -132,7 +131,32 @@ def start():
 
 @app.route('/game')
 def game():
-    return render_template("game.html")
+    
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+
+    ip = "https://ipapi.co/json/"
+    response = urllib.request.urlopen(ip)
+    obj = json.loads(response.read())
+    lat = str(obj['latitude'])
+    lon = str(obj['longitude'])
+    weather = "https://api.darksky.net/forecast/" + key + "/" + lat + "," + lon
+    response = urllib.request.urlopen(weather)
+    obj = json.loads(response.read())
+    condition = obj['currently']['icon']
+    effect = ''
+    #print(conditon)
+    if ('cloudy' in condition.lower()):
+        effect = 'cloudy'
+    elif ("clear" in condition.lower()):
+        effect = 'clear'
+    elif ('rain' in condition.lower()):
+        effect = 'rain'
+    else:
+        effect = 'none'
+    return render_template("game.html", effect = effect)
 
 @app.route('/newpoke', methods=['POST', 'GET'])
 def newpoke():
