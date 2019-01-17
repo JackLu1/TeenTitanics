@@ -7,7 +7,7 @@ import urllib
 
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
-from util import db, auth
+from util import db, auth, temp
 
 #from util import auth, adders, getters
 
@@ -96,26 +96,58 @@ def leaders():
     leaders = db.leaderboard()
     return render_template("leaders.html", leaders=leaders)
 
-@app.route('/profile')
-def profile():
+@app.route('/market')
+def market():
     try:
         user = session['user']
     except:
         return redirect('/')
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    money = user_info[7]
     # stuff = user_info[???]
-    return render_template("profile.html",
+    return render_template("market.html",
                             username = user,
+                            money = money
 
     )
 
 @app.route('/start')
 def start():
-    return render_template("start.html")
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    slots = user_info[3]
+    pokemon_images = []
+    poke_info = db.findAll('pokeInfo')[:slots]
+    for poke in poke_info:
+        pokemon_images.append(poke[1] + '.png')
+    return render_template("start.html",
+                            pokemons = pokemon_images
+    )
 
 @app.route('/game')
 def game():
     return render_template("game.html")
+
+@app.route('/newpoke', methods=['POST', 'GET'])
+def newpoke():
+    try:
+        user = session['user']
+    except:
+        return redirect('/')
+    user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
+    money = user_info[7]
+    # assuming 3 slots initiated
+    slots = user_info[3]
+    poke_info = db.findAll('pokeInfo')
+    # new_poke = poke_info[slots]
+    new_poke = poke_info[0]
+    slots += 1
+    db.modify('userInfo', 'slots', slots, 'username', user)
+    db.modify('userInfo', 'money', money - 200, 'username', user)
+    return redirect('/start')
 
 if __name__ == "__main__":
     app.debug = True

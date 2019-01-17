@@ -61,37 +61,79 @@ if empty:
 db.commit()
 db.close()
 
-#def findAll(tableName):
-#    '''returns entire record with specific value at specific column from specified db table'''
+def findAll(tableName):
+   '''returns entire record with specific value at specific column from specified db table'''
 
-#    db = sqlite3.connect("data/info.db")
+   db = sqlite3.connect("data/info.db")
 
-#    c = db.cursor()
+   c = db.cursor()
 
-#    command = "SELECT * from {0}".format(tableName)
-#    c.execute(command)
+   command = "SELECT * from {0}".format(tableName)
+   c.execute(command)
 
-#    info = c.fetchall()
-#    db.close()
+   info = c.fetchall()
+   db.close()
 
- #   return info
+   return info
 
-#def findInfo(tableName,filterValue,colToFilt, sortCol = None, notEqual = None, fetchOne = None, asSubstring= False):
-#    '''returns entire record with specific value at specific column from specified db table'''
+def findInfo(tableName,filterValue,colToFilt, sortCol = None, notEqual = None, fetchOne = None, asSubstring= False):
+   '''returns entire record with specific value at specific column from specified db table'''
 
-#    db = sqlite3.connect("data/info.db")
+   db = sqlite3.connect("data/info.db")
 
-#    c = db.cursor()
+   c = db.cursor()
 
-#    if notEqual:
-#        boolEqual = '!'
-#    else:
-#        boolEqual = ''
+   if notEqual:
+       boolEqual = '!'
+   else:
+       boolEqual = ''
 
-#    if sortCol:
-#        sortQuery = 'ORDER BY {}'.format(sortCol)
-#    else:
-#        sortQuery = ''
+   if sortCol:
+       sortQuery = 'ORDER BY {}'.format(sortCol)
+   else:
+       sortQuery = ''
+
+   if notEqual:
+       boolEqual = '!'
+   else:
+       boolEqual = ''
+
+   if sortCol:
+       sortQuery = 'ORDER BY {}'.format(sortCol)
+   else:
+       sortQuery = ''
+
+   if asSubstring:
+       filterValue = '%' + filterValue + '%'
+       eq = 'LIKE'
+   else:
+       eq = '='
+
+   command = "SELECT * FROM  '{0}'  WHERE {1} {3}{4} '{2}'".format(tableName,colToFilt,filterValue, boolEqual, eq)
+   command += sortQuery
+   c.execute(command)
+
+   listInfo = []
+   if fetchOne:
+       info = c.fetchone()
+   else:
+       info = c.fetchall()
+
+   if info:
+       for col in info:
+           #print(col)-
+           listInfo.append(col)
+
+   db.close()
+   return listInfo
+
+def modify(tableName, colToMod, newVal, filterIndex, filterValue):
+    db = sqlite3.connect("data/info.db")
+    c = db.cursor()
+    print(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
+    c.execute(("UPDATE {0} SET {1}='{2}' WHERE {3}='{4}'").format(tableName, colToMod, newVal, filterIndex, filterValue))
+    db.commit()
+    db.close()
 
 #    if asSubstring:
 #        filterValue = '%' + filterValue + '%'
@@ -113,7 +155,7 @@ db.close()
 #        for col in info:
 #            #print(col)-
 #            listInfo.append(col)
-    
+
 #    db.close()
 #    return listInfo
 
@@ -134,4 +176,3 @@ def leaderboard():
         entry = []
     db.close()
     return entries
-    
