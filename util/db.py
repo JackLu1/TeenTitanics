@@ -23,7 +23,7 @@ for i in c.execute("SELECT * FROM pokeInfo WHERE pokeID = 1"):
 if empty:
     counter = 1
 
-    while (counter < 8):
+    while (counter < 12):
 
         '''access api and read json information'''
         poke = "https://pokeapi.co/api/v2/pokemon/" + str(counter) + "/"
@@ -51,8 +51,16 @@ if empty:
 
         c.execute("INSERT INTO pokeInfo(name, health, attack, speed, type) VALUES (?,?,?,?,?)", (name, health, attack, speed, typ,))
 
-        counter += 3
+        '''adds intermediate pokemon'''
+        if (counter == 7):
+            counter = -1
 
+        '''adds final pokemon'''
+        if (counter == 8):
+            counter = 0
+
+        counter += 3
+        
 #c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",("324ware","234",0,0,0,0,0,19))
 #c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",("234wera","pswd",0,0,0,0,0,3))
 #c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money) VALUES(?,?,?,?,?,?,?)",("324ware","234",0,0,0,0,0,))

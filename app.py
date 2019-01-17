@@ -121,17 +121,20 @@ def start():
         return redirect('/')
     user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
     slots = user_info[3]
+    print(slots)
     pokemon_images = []
     poke_info = db.findAll('pokeInfo')[:slots]
+    print(poke_info)
     for poke in poke_info:
         pokemon_images.append(poke[1] + '.png')
+    print(pokemon_images)
     return render_template("start.html",
                             pokemons = pokemon_images
     )
 
 @app.route('/game')
 def game():
-    
+
     try:
         user = session['user']
     except:
