@@ -25,7 +25,7 @@ function Pokemon(name,speed,startX,startY){
 	this.speed=speed;
 	this.img = new Image();
 	this.img.src="../static/"+name+".png";
-	this.maxBomb=2;
+	this.maxBomb=3;
 	this.xCor=startX;
 	this.yCor=startY;
 	this.tileX=(startX/50)|0;
@@ -52,7 +52,7 @@ function updatePkmn(){
 	//ctx.drawImage(pkmn.img,xCor,yCor,50,50); 1 player
 	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 players
 	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
-	document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+"<br>Player 2 HP: "+pkmn1.hp;
+	document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
 }
 function createBoard(){
 	var row;
@@ -127,6 +127,8 @@ var validKeysP0 = ["w","a","s","d"];//for player one
 var validKeysP1 = ["ArrowUp","ArrowLeft","ArrowDown","ArrowRight"];//for player two
 var last_clicked0 = 0;//player 1 buffer
 var last_clicked1 = 0;//player 2 buffer
+var last_used0=0;//bomb reload
+var last_used1=0;
 window.addEventListener("keydown",function(e){
 	var keypress= e.key;
 	if(pkmn0.hp&&validKeysP0.indexOf(keypress)>-1){
@@ -140,10 +142,26 @@ window.addEventListener("keydown",function(e){
 		movement(keypress,50,validKeysP1,pkmn1);
 	}
 	else if(pkmn0.hp&&keypress==" "){
-		action(1,pkmn0.xCor,pkmn0.yCor,pkmn0);
-	}
+		if(pkmn0.maxBomb){
+			pkmn0.maxBomb--;
+			action(1,pkmn0.xCor,pkmn0.yCor,pkmn0);
+		}
+	}	
 	else if(pkmn1.hp&&keypress=="0"){
-		action(1,pkmn1.xCor,pkmn1.yCor,pkmn1);
+		if(pkmn1.maxBomb){
+			pkmn1.maxBomb--;
+			action(1,pkmn1.xCor,pkmn1.yCor,pkmn1);
+		}
+	}
+	if(pkmn0.maxBomb<3){
+		if(Date.now()-last_used0<5000)return;
+		last_used0=Date.now();
+		pkmn0.maxBomb++;
+	}
+	if(pkmn1.maxBomb<3){
+		if(Date.now()-last_used1<5000)return;
+		last_used1=Date.now();
+		pkmn1.maxBomb++;
 	}
 });
 function loseHp(locX,locY,pkmn){
@@ -213,7 +231,7 @@ function action(time,xLoc,yLoc,pkmn){
 		renderBase(xLoc,yLoc-50,50,50);
 		mapArr[xTile][yTile-1]=empty;
 	}
-	if(southCon&&mapArr[xTile][yTile-2]==empty){
+	if(southCon&&mapArr[xTile][yTile-2]==empty){	
 		ctx.drawImage(explosion,xLoc,yLoc-100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile-2,pkmn);}
 	}
@@ -221,7 +239,7 @@ function action(time,xLoc,yLoc,pkmn){
 		renderBase(xLoc,yLoc-100,50,50);
 		mapArr[xTile][yTile-2]=empty;
 	}
-	if(mapArr[xTile][yTile+1]==empty){
+	if(mapArr[xTile][yTile+1]==empty){	
 		ctx.drawImage(explosion,xLoc,yLoc+50,50,50);
 		northCon=true;
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+1,pkmn);}
@@ -229,7 +247,7 @@ function action(time,xLoc,yLoc,pkmn){
 	if(mapArr[xTile][yTile+1]==brickV){
 		renderBase(xLoc,yLoc+50,50,50);
 		mapArr[xTile][yTile+1]=empty;
-	}
+	}	
 	if(northCon&&mapArr[xTile][yTile+2]==empty){
 		ctx.drawImage(explosion,xLoc,yLoc+100,50,50);
 		if(!dealtDmg){dealtDmg=loseHp(xTile,yTile+2,pkmn);}
@@ -240,7 +258,7 @@ function action(time,xLoc,yLoc,pkmn){
 	}
 	}
 	renderChar();
-	//var startTime=new Date();
+	//var startTime=new Date();	
 	if (time<5){
 	  time++;
 	  setTimeout(function(){action(time,xLoc,yLoc,pkmn);},1000);
@@ -285,7 +303,7 @@ function movement(direction,step,array,pkmn){
 console.log(mapArr);
 setInterval(function(){
 	if(pkmn0.hp && pkmn1.hp){
-		document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
+		document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"Number of P0 Bombs:"+pkmn0.maxBomb+"<br>Player 2 HP:"+pkmn1.hp+"Number of P1 Bombs:"+pkmn1.maxBomb;
 		}
 		else{
 			if(pkmn0.hp>pkmn1.hp){
