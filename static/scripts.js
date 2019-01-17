@@ -260,5 +260,8 @@ function movement(direction,step){
   }
 }*/
 console.log(mapArr);
+//setInterval(function(){tileX=(xCor/50)|0;
+//tileY=(yCor/50)|0;},500);
+
 setInterval(function(){tileX=(xCor/50)|0;
-tileY=(yCor/50)|0;},500);
+tileY=(yCor/50)|0;},50);
