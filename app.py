@@ -3,17 +3,20 @@
 import json
 import os
 import urllib
-#import datetime
 
 from flask import Flask, render_template, session, redirect, request, url_for, flash
 
-from util import db, auth, temp
-
-#from util import auth, adders, getters
+from util import db, auth
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(32)
+
+#obtains keys to use from key database
+with open("data/key.json") as f:
+    data = json.loads(f.read())
+    key=data['key']
+
 
 @app.route("/")
 def index():

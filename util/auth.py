@@ -50,7 +50,7 @@ def register(user,pswd,passConf):
             return "Passwords do not match"        
         
         #if password confirmation succeeds add the user to the database
-        c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",(user,pswd,0,0,0,0,0,0,))
+        c.execute("INSERT INTO userInfo (username, password, slots, healthUpgrade, attackUpgrade, speedUpgrade, money, wins) VALUES(?,?,?,?,?,?,?,?)",(user,pswd,3,0,0,0,0,0,))
         db.commit()
         db.close()
         return "Account creation successful"
