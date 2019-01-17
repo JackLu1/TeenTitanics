@@ -56,8 +56,10 @@ a:hover {
 }
 
 #help {
-  /* text-align: left;
-  left: 50px; */
+  float: none;
+  margin-left: 36%;
+  margin-right: auto;
+  text-align: left;
 }
 
 #canvas {

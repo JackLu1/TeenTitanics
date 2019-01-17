@@ -285,12 +285,12 @@ function movement(direction,step,array,pkmn){
 console.log(mapArr);
 setInterval(function(){
 	if(pkmn0.hp && pkmn1.hp){
-		document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
+		document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+"<br>Player 2 HP: "+pkmn1.hp;
 		}
 		else{
 			if(pkmn0.hp>pkmn1.hp){
-				document.getElementById("stat").innerHTML="Player 1 wins<br>";
+				document.getElementById("stat").innerHTML="Player 1 wins!<br>";
 				}else{
-					document.getElementById("stat").innerHTML="Player 2 wins<br>";
+					document.getElementById("stat").innerHTML="Player 2 wins!<br>";
 				}}pkmn0.tileX=(pkmn0.xCor/50)|0;pkmn1.tileX=(pkmn1.xCor/50)|0;
 pkmn0.tileY=(pkmn0.yCor/50)|0;pkmn1.tileY=(pkmn1.yCor/50)|0;},500);
