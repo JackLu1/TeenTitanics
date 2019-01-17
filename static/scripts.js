@@ -7,16 +7,16 @@ pre_canvas.height=canvas.height;
 var pre_ctx=pre_canvas.getContext("2d");*/
 //image processing
 var wall = new Image();
-wall.src="/static/wall.png";
+wall.src="../static/wall.png";
 var wallV=1;
 var brick = new Image();
-brick.src="/static/brick.png";
+brick.src="../static/brick.png";
 var brickV=2;
 var bomb = new Image();
-bomb.src="/static/bomb.png";
+bomb.src="../static/bomb.png";
 var bombV=3;
 var explosion = new Image();
-explosion.src="/static/explosion4.png";
+explosion.src="../static/explosion4.png";
 var explosionV=4;
 var empty=0;
 function Pokemon(name,speed,startX,startY){
@@ -30,7 +30,8 @@ function Pokemon(name,speed,startX,startY){
 	this.yCor=startY;
 	this.tileX=(startX/50)|0;
 	this.tileY=(startY/50)|0;
-}//Map tile amount
+}
+//Map tile amount
 var mapHeight=(canvas.height/50)|0;
 var mapWidth=(canvas.width/50)|0;
 //Creates empty array
@@ -58,8 +59,8 @@ function createBoard(){
 	var col;
 	for(row =1;row<mapWidth-1;row++){
 		for(col=1;col<mapHeight-1;col++){
-			let chance = Math.random()*8|0;
-			if(chance){
+			let chance = Math.random()*2|0;
+			if(!chance){
 			ctx.drawImage(brick,row*50,col*50,50,50);
 			mapArr[row][col]=brickV;
 			}
@@ -97,8 +98,12 @@ function renderBase(startX,startY,width,height){
 }
 function renderChar(){
 	//ctx.drawImage(pkmn.img, xCor, yCor,50,50); 1 player
+	if(pkmn0.hp){
 	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 player
+	}
+	if(pkmn1.hp){
 	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
+	}
 }
 function renderBoard(){
 	renderBase(0,0,canvas.height,canvas.width);
@@ -124,26 +129,28 @@ var last_clicked0 = 0;//player 1 buffer
 var last_clicked1 = 0;//player 2 buffer
 window.addEventListener("keydown",function(e){
 	var keypress= e.key;
-	if(validKeysP0.indexOf(keypress)>-1){
+	if(pkmn0.hp&&validKeysP0.indexOf(keypress)>-1){
 		if(Date.now()-last_clicked0 <500)return;
 		last_clicked0 = Date.now();
 		movement(keypress,50,validKeysP0,pkmn0);
 	}
-	else if(validKeysP1.indexOf(keypress)>-1){
+	else if(pkmn1.hp&&validKeysP1.indexOf(keypress)>-1){
 		if(Date.now()-last_clicked1 <500)return;
 		last_clicked1 = Date.now();
 		movement(keypress,50,validKeysP1,pkmn1);
 	}
-	else if(keypress==" "){
+	else if(pkmn0.hp&&keypress==" "){
 		action(1,pkmn0.xCor,pkmn0.yCor,pkmn0);
 	}
-	else if(keypress=="0"){
+	else if(pkmn1.hp&&keypress=="0"){
 		action(1,pkmn1.xCor,pkmn1.yCor,pkmn1);
 	}
 });
 function loseHp(locX,locY,pkmn){
 	if((locX ==pkmn.tileX) &&(locY==pkmn.tileY)){
+		if(pkmn.hp){
 		pkmn.hp-=5;
+		}
 		return true;
 	}
 }
@@ -276,8 +283,14 @@ function movement(direction,step,array,pkmn){
   }
 }*/
 console.log(mapArr);
-//setInterval(function(){tileX=(xCor/50)|0;
-//tileY=(yCor/50)|0;},500);
-
-setInterval(function(){pkmn0.tileX=(pkmn0.xCor/50)|0;pkmn1.tileX=(pkmn1.xCor/50)|0;
-pkmn0.tileY=(pkmn0.yCor/50)|0;pkmn1.tileY=(pkmn1.yCor/50)|0;},50);
+setInterval(function(){
+	if(pkmn0.hp && pkmn1.hp){
+		document.getElementById("stat").innerHTML="Player 1 HP:"+pkmn0.hp+"<br>Player 2 HP:"+pkmn1.hp;
+		}
+		else{
+			if(pkmn0.hp>pkmn1.hp){
+				document.getElementById("stat").innerHTML="Player 1 wins<br>";
+				}else{
+					document.getElementById("stat").innerHTML="Player 2 wins<br>";
+				}}pkmn0.tileX=(pkmn0.xCor/50)|0;pkmn1.tileX=(pkmn1.xCor/50)|0;
+pkmn0.tileY=(pkmn0.yCor/50)|0;pkmn1.tileY=(pkmn1.yCor/50)|0;},500);
