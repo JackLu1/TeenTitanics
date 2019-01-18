@@ -21,7 +21,7 @@ var explosionV=4;
 var empty=0;
 function Pokemon(name,speed,startX,startY){
 	this.name=name;
-	this.hp=25;
+	this.hp=15;
 	this.speed=speed;
 	this.img = new Image();
 	this.img.src="../static/"+name+".png";
@@ -308,7 +308,9 @@ setInterval(function(){
 		else{
 			if(pkmn0.hp>pkmn1.hp){
 				document.getElementById("stat").innerHTML="Player 1 wins!<br>";
+				document.getElementById("win").value = "1";
 				}else{
 					document.getElementById("stat").innerHTML="Player 2 wins!<br>";
+					document.getElementById("win").value = "2";
 				}}pkmn0.tileX=(pkmn0.xCor/50)|0;pkmn1.tileX=(pkmn1.xCor/50)|0;
 pkmn0.tileY=(pkmn0.yCor/50)|0;pkmn1.tileY=(pkmn1.yCor/50)|0;},500);

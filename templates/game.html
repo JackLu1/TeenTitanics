@@ -46,8 +46,13 @@
 
   <div id="sidepanel">
   	<p id="stat"></p>
-  	<div id="effect"> Weather: {{effect}} </div><br>
+  	<div id="effect"> Weather: {{effect}} </div>
   </div>
+
+  <form action="/leaders" method="POST">
+    <input id="win" name="winner" type="hidden">
+    <input type="submit" value="See Leaderboard">
+  </form>
 
 
 </body>
