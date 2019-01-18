@@ -11,13 +11,16 @@
     <div class="container">
       <form action="/game" method="POST">
         <div class="row">
+	  
           {% for pokemon in pokemons %}
             <div class="col-sm">
                 <img src="{{url_for('static', filename=pokemon)}}" width=50%/><br><input class="form-check-input" type="radio" name="chosenpoke" value={{pokemon}} checked><br>
             </div>
           {% endfor %}
         </div>
-        <br><input id="play" type="submit" value="Play!">
+        <br>
+	
+	<button type="submit" class="btn btn-outline-light" id="play">Play!</button>
       </form>
     </div><br>
     <br>

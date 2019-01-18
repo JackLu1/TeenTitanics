@@ -23,8 +23,12 @@
 
   <footer>
     {% block logout %}
-      <a href = '/'>Back</a><br>
-      <a href = '/logout'>Log Out</a>
+    <br>
+    <div class="btn-group-vertical">
+      <a href="/" class="btn btn-outline-primary btn-lg active" role="button" aria-pressed="true">Back</a>
+      <a href="/logout" class="btn btn-outline-secondary btn-lg active" role="button" aria-pressed="true">Logout</a>
+    </div>
+    <br>
     {% endblock %}
     {% block footer %}
     <br>
