@@ -309,6 +309,7 @@ setInterval(function(){
 			if(pkmn0.hp>pkmn1.hp){
 				document.getElementById("stat").innerHTML="Player 1 wins!<br>";
 				document.getElementById("win").value = "1";
+				console.log('DONE')
 				}else{
 					document.getElementById("stat").innerHTML="Player 2 wins!<br>";
 					document.getElementById("win").value = "2";

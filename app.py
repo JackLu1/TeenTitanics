@@ -108,7 +108,7 @@ def leaders():
         user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
         money = user_info[7]
         wins = user_info[8]
-        db.modify('userInfo', 'money', money + 100, 'username', user)
+        db.modify('userInfo', 'money', money + 300, 'username', user)
         print ('mod')
         db.modify('userInfo', 'wins', wins + 1, 'username', user)
         leaders = db.leaderboard()
