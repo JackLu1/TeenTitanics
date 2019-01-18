@@ -113,7 +113,7 @@ def market():
     return render_template("market.html",
                             username = user,
                             money = money,
-                            price = slots 
+                            price = slots
 
     )
 
@@ -137,13 +137,16 @@ def start():
                             pokemons = pokemon_images
     )
 
-@app.route('/game')
+@app.route('/game', methods=['POST', 'GET'])
 def game():
 
     try:
         user = session['user']
     except:
         return redirect('/')
+
+    chosenpoke = request.form['chosenpoke']
+    chosenpoke = chosenpoke[:-4]
 
     ip = "https://ipapi.co/json/"
     response = urllib.request.urlopen(ip)
@@ -164,7 +167,9 @@ def game():
         effect = 'rain'
     else:
         effect = 'none'
-    return render_template("game.html", effect = effect)
+    return render_template("game.html",
+                            pokemon = chosenpoke,
+                            effect = effect)
 
 @app.route('/newpoke', methods=['POST', 'GET'])
 def newpoke():
@@ -178,10 +183,10 @@ def newpoke():
     slots = user_info[3]
     price = slots * 100
     # assuming 3 slots initiated
-    
+
     if (slots == 9):
         price = "NOTHING YOU HAVE EVERYTHING ALREADY"
-        flash("You have everything already!") 
+        flash("You have everything already!")
         return render_template("market.html",
                                 username=user,
                                 money=money,
@@ -196,7 +201,7 @@ def newpoke():
         db.modify('userInfo', 'slots', slots, 'username', user)
         db.modify('userInfo', 'money', money - price, 'username', user)
         return redirect('/start')
-    
+
     else:
         if (slots == 9):
             price = "NOTHING YOU HAVE EVERYTHING ALREADY"
@@ -221,7 +226,7 @@ def newhealth():
 
     if (slots == 900):
         slots = "NOTHING YOU HAVE EVERYTHING ALREADY"
-    
+
     if money >= 100:
         health += 1
         db.modify('userInfo', 'healthUpgrade', health, 'username', user)
@@ -232,7 +237,7 @@ def newhealth():
                                 money=money,
                                 price=slots
         )
-    
+
     else:
         flash ("You don't have enough money! Earn money by winning a new game.")
         return render_template("market.html",
@@ -259,14 +264,14 @@ def newattack():
     if money >= 100:
         attack += 1
         db.modify('userInfo', 'attackUpgrade', attack, 'username', user)
-        db.modify('userInfo', 'money', money - 100, 'username', user) 
+        db.modify('userInfo', 'money', money - 100, 'username', user)
         money = money - 100
         return render_template("market.html",
                                 username=user,
                                 money=money,
-                                price=slots 
+                                price=slots
         )
-    
+
     else:
         flash ("You don't have enough money! Earn money by winning a new game.")
         return render_template("market.html",
@@ -300,7 +305,7 @@ def newspeed():
                                 money=money,
                                 price=slots
         )
-    
+
     else:
         flash ("You don't have enough money! Earn money by winning a new game.")
         return render_template("market.html",

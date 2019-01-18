@@ -9,15 +9,16 @@
     <h2>Choose your bombermon:</h2><br>
 
     <div class="container">
-      <div class="row">
-        {% for pokemon in pokemons %}
-          <div class="col-sm">
-            <a href="/game">
-                <img src="{{url_for('static', filename=pokemon)}}" width=50%/>
-            </a>
-          </div>
-        {% endfor %}
-      </div>
+      <form action="/game" method="POST">
+        <div class="row">
+          {% for pokemon in pokemons %}
+            <div class="col-sm">
+                <img src="{{url_for('static', filename=pokemon)}}" width=50%/><br><input class="form-check-input" type="radio" name="chosenpoke" value="{{pokemon}}" checked><br>
+            </div>
+          {% endfor %}
+        </div>
+        <br><input id="play" type="submit" value="Play!">
+      </form>
     </div><br>
     <br>
 

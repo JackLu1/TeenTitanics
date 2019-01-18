@@ -35,6 +35,15 @@ a:hover {
   background-color:white;
 }
 
+#play {
+  font-size: 20px;
+}
+
+#play:hover {
+  font-size: 28px;
+  cursor: pointer;
+}
+
 #leaderboard {
   text-align: left;
   width: 19%;
