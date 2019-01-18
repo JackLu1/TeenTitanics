@@ -8,7 +8,7 @@
 A local multiplayer game based off the popular game Bomberman, but with a twist! Fight opponents as Pokemon with special abilities with weather effects based on your coordinates! After gathering some wins, go to the market to get new Pokemons and buy upgrades or head to the leaderboard to see who's dominating right now. 
 
 ## Video Demo
-
+[our video demo here](https://youtu.be/gmpcIXzbpss)
 ## Necessary packages
 Note:
 
