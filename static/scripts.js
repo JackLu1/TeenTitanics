@@ -40,7 +40,7 @@ for(var i=0;i<mapWidth;i++){
 	mapArr[i]=new Array(mapHeight).fill(empty);//decimal pipe is cool
 }
 //var pkmn= new Pokemon("squirtle",1); //1 player
-var pkmn0=new Pokemon("squirtle",1,50,50); //2 players now
+var pkmn0=new Pokemon(document.getElementById("pokemon").value,1,50,50); //2 players now
 var pkmn1=new Pokemon("pikachu",1,950,450);
 //pkmn.img.onload = function (){
 window.onload=function(){
