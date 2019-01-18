@@ -104,7 +104,7 @@ def leaders():
         winner = request.form["win"]
         print ("winner retrieved")
         print (winner)
-        if winner == "2":
+        if winner == "1":
             user_info = db.findInfo('userInfo', user, 'username', fetchOne =  True)
             money = user_info[7]
             wins = user_info[8]
@@ -113,6 +113,7 @@ def leaders():
             db.modify('userInfo', 'wins', wins + 1, 'username', user)
             leaders = db.leaderboard()
             return render_template("leaders.html", leaders=leaders)
+        return render_template("leaders.html", leaders=leaders)
     except:
         leaders = db.leaderboard()
         return render_template("leaders.html", leaders=leaders)
