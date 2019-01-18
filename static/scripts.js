@@ -52,7 +52,12 @@ function updatePkmn(){
 	//ctx.drawImage(pkmn.img,xCor,yCor,50,50); 1 player
 	ctx.drawImage(pkmn0.img,pkmn0.xCor,pkmn0.yCor,50,50);//2 players
 	ctx.drawImage(pkmn1.img,pkmn1.xCor,pkmn1.yCor,50,50);
-	document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+"<br>Player 2 HP: "+pkmn1.hp;
+	document.getElementById("p1hp").innerHTML="HP: "+pkmn0.hp;
+	document.getElementById("p2hp").innerHTML="HP: "+pkmn1.hp;
+	document.getElementById("p1bomb").innerHTML="Bombs Left:" +pkmn0.maxBomb;
+	document.getElementById("p2bomb").innerHTML="Bombs Left:" +pkmn1.maxBomb;
+	document.getElementById("p1speed").innerHTML="Speed:" +pkmn0.speed;
+	document.getElementById("p2speed").innerHTML="Speed:" +pkmn1.speed;
 }
 function createBoard(){
 	var row;
@@ -302,8 +307,15 @@ function movement(direction,step,array,pkmn){
 }*/
 console.log(mapArr);
 setInterval(function(){
+	document.getElementById("p1hp").innerHTML="HP: "+pkmn0.hp;
+	document.getElementById("p2hp").innerHTML="HP: "+pkmn1.hp;
+	document.getElementById("p1bomb").innerHTML="Bombs Left:" +pkmn0.maxBomb;
+	document.getElementById("p2bomb").innerHTML="Bombs Left:" +pkmn1.maxBomb;
+		document.getElementById("p1speed").innerHTML="Speed:" +pkmn0.speed;
+	document.getElementById("p2speed").innerHTML="Speed:" +pkmn1.speed;
+	
 	if(pkmn0.hp && pkmn1.hp){
-		document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+" Bombs: "+pkmn0.maxBomb+"<br>Player 2 HP: "+pkmn1.hp+" Bombs: "+pkmn1.maxBomb;
+		//document.getElementById("stat").innerHTML="Player 1 HP: "+pkmn0.hp+" Bombs: "+pkmn0.maxBomb+"<br>Player 2 HP: "+pkmn1.hp+" Bombs: "+pkmn1.maxBomb;
 		}
 		else{
 			if(pkmn0.hp>pkmn1.hp){
