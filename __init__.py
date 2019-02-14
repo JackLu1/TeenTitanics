@@ -13,7 +13,10 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 #obtains keys to use from key database
-with open("data/key.json") as f:
+DIR = os.path.abspath('.')
+DIR += '/'
+
+with open(DIR + "data/key.json") as f:
     data = json.loads(f.read())
     key=data["key"]
 

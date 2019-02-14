@@ -1,8 +1,12 @@
 import sqlite3, urllib.request, json
 
+import os
+
 #open("../data/info.db","w").close() #Resets Database
 
-db = sqlite3.connect("data/info.db")
+DIR = os.path.abspath('.')
+DIR += '/'
+db = sqlite3.connect(DIR + "data/info.db")
 
 c = db.cursor()
 
